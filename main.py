@@ -64,4 +64,5 @@ def home():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Ensure the app binds to 0.0.0.0 for Render
+    app.run(host='0.0.0.0', port=5000, debug=True)

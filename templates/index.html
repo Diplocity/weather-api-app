@@ -3,26 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Weather Analytics</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Weather API App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Real-Time Temperature Trends</h1>
-        <form method="POST">
-            <label for="city">Enter City:</label>
-            <input type="text" id="city" name="city" required>
-            <button type="submit">Get Weather</button>
-        </form>
+        <h1>Weather Trends</h1>
 
+        <!-- Weather Form -->
+        <div class="card">
+            <h2>Enter a city:</h2>
+            <form method="POST" action="/">
+                <input type="text" name="city" value="{{ city }}" placeholder="Enter city" required>
+                <button type="submit">Get Weather</button>
+            </form>
+        </div>
+
+        <!-- Error Message -->
         {% if error %}
-            <p style="color: red;">{{ error }}</p>
+            <div class="card">
+                <h3 style="color:red;">{{ error }}</h3>
+            </div>
         {% endif %}
 
-        {% if city %}
-            <h2>Weather Data for {{ city }}</h2>
-            <div class="chart-container">
-                <img src="data:image/png;base64,{{ image_base64 }}" alt="Temperature Trends">
+        <!-- Weather Info -->
+        {% if image_base64 %}
+            <div class="weather-info">
+                <h2>Temperature Trends for {{ city }}</h2>
+                <div class="chart">
+                    <img src="data:image/png;base64,{{ image_base64 }}" alt="Temperature Chart">
+                </div>
             </div>
         {% endif %}
     </div>
